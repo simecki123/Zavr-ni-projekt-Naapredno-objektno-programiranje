@@ -3,16 +3,21 @@ package View;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
 public class MainFrame extends JFrame {
+    private PregledRezervacijaPanel pregledRezervacijaPanel;
+    private UrediRezervacije urediRezervacije;
 
     private JPanel panelBottuns;
     private JButton botunUrediRezervacijeZaDatum;
     private JButton napraviRezervaciju;
+    private JButton pregledRasporeda;
     private JPanel slikaPanel;
 
 
@@ -32,14 +37,21 @@ public class MainFrame extends JFrame {
 
 
     private void initAll() {
+
+        pregledRezervacijaPanel = new PregledRezervacijaPanel();
+        urediRezervacije = new UrediRezervacije();
+
         panelBottuns = new JPanel();
         panelBottuns.setSize(600,100);
         botunUrediRezervacijeZaDatum = new JButton("Uredi Rezervacije");
         botunUrediRezervacijeZaDatum.setBackground(Color.CYAN);
         napraviRezervaciju = new JButton("Napravi Rezervacijju");
         napraviRezervaciju.setBackground(Color.CYAN);
+        pregledRasporeda = new JButton("Pregled rezervacija");
+        pregledRasporeda.setBackground(Color.CYAN);
         panelBottuns.add(botunUrediRezervacijeZaDatum);
         panelBottuns.add(napraviRezervaciju);
+        panelBottuns.add(pregledRasporeda);
         panelBottuns.setBackground(Color.BLACK);
 
         slikaPanel = new JPanel();
@@ -82,6 +94,19 @@ public class MainFrame extends JFrame {
     }
 
     private void activateApp() {
+        pregledRasporeda.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pregledRezervacijaPanel.setVisible(true);
+            }
+        });
+
+        botunUrediRezervacijeZaDatum.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                urediRezervacije.setVisible(true);
+            }
+        });
     }
 
 
