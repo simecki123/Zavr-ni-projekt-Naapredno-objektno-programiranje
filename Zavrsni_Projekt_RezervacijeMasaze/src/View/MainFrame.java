@@ -125,13 +125,20 @@ public class MainFrame extends JFrame {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
                 controller.addNewElementsInDatabase(dataEvent.getRezervations(),urediRezervacije.getTablica());
-
+                controller.updateOtherPanels(dataEvent.getRezervations(), pregledRezervacijaPanel, napraviRezervacijeCLS);
             }
         });
         urediRezervacije.setDataPanelSearch(new DataPanelListener() {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
                 controller.addElementsUserIsSearchingFor(dataEvent.getRezervations(), urediRezervacije.getTablica());
+            }
+        });
+
+        pregledRezervacijaPanel.setPanelListenerSearch(new DataPanelListener() {
+            @Override
+            public void dataPanelEventOccured(DataEvent dataEvent) {
+                controller.addElementsUserIsSearchingFor(dataEvent.getRezervations(), pregledRezervacijaPanel.getTable());
             }
         });
     }

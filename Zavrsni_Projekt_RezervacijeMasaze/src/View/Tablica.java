@@ -87,4 +87,6 @@ public class Tablica extends JTable{
         this.rezervations = rezervations;
         dtm.fireTableDataChanged();
     }
+
+
 }

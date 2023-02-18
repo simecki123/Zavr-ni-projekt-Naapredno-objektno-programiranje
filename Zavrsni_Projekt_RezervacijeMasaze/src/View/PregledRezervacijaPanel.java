@@ -7,6 +7,9 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,8 @@ public class PregledRezervacijaPanel extends JFrame {
     private JPanel panelZaDatum;
 
     private List<Rezervation> rezervations;
-
+    private DataPanelListener panelListenerSearch;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public PregledRezervacijaPanel(){
         super("View ofReservations");
@@ -49,10 +53,13 @@ public class PregledRezervacijaPanel extends JFrame {
         panelZaDatum.add(pretrazi);
     }
 
+    public void setRezervations(List<Rezervation> rezervations) {
+        this.rezervations = rezervations;
+    }
 
-
-
-
+    public void setPanelListenerSearch(DataPanelListener panelListenerSearch) {
+        this.panelListenerSearch = panelListenerSearch;
+    }
 
     private void layoutAll() {
         add(panelZaDatum, BorderLayout.NORTH);
@@ -61,6 +68,31 @@ public class PregledRezervacijaPanel extends JFrame {
     }
 
     private void activateApp() {
+        pretrazi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(dateChooser.getDate() != null) {
+                    List<Rezervation> odabraneRezervacije = new ArrayList<>();
+                    for(Rezervation rez : rezervations){
+                        if(rez.getDay().equals(simpleDateFormat.format(dateChooser.getDate()))){
+                            odabraneRezervacije.add(rez);
+                        }
+                    }
+                    DataEvent dataEvent = new DataEvent(this,odabraneRezervacije);
+                    panelListenerSearch.dataPanelEventOccured(dataEvent);
+                    dateChooser.setDate(null);
 
+                } else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Date is not set!!!", "Warning",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        });
+
+    }
+
+    public Tablica getTable() {
+        return tablicaPregleda;
     }
 }

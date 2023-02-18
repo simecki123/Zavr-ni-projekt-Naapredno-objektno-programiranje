@@ -2,6 +2,8 @@ package Controller;
 
 import Model.DataBase;
 import Model.Rezervation;
+import View.NapraviRezervacijeCLS;
+import View.PregledRezervacijaPanel;
 import View.Tablica;
 
 import java.util.List;
@@ -20,5 +22,12 @@ public class Controller {
 
     public void addElementsUserIsSearchingFor(List<Rezervation> rezervations, Tablica table) {
         table.setSearchedTable(rezervations);
+    }
+
+    public void updateOtherPanels(List<Rezervation> rezervations, PregledRezervacijaPanel pregledRezervacijaPanel,
+                                  NapraviRezervacijeCLS napraviRezervacijeCLS) {
+
+        pregledRezervacijaPanel.setRezervations(rezervations);
+
     }
 }
