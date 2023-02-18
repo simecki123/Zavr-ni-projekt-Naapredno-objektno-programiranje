@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TablePanel extends JPanel{
-    private JPanel toolBar;
+
     private Tablica tablica;
     private JScrollPane scTablePanel;
 
-    private JButton clearRow;
-    private JButton clearTable;
-    private JButton undo;
-    private JButton redo;
+
 
     private List<Rezervation> rezervations;
 
@@ -34,15 +31,7 @@ public class TablePanel extends JPanel{
         this.tablica = new Tablica();
         scTablePanel = new JScrollPane(tablica, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        clearRow = new JButton("Clear Row");
-        clearTable = new JButton("ClearTable");
-        undo = new JButton("Undo");
-        redo = new JButton("Redo");
-        toolBar = new JPanel();
-        toolBar.add(clearRow);
-        toolBar.add(clearTable);
-        toolBar.add(undo);
-        toolBar.add(redo);
+
 
         rezervations = new ArrayList<>();
 
@@ -61,9 +50,9 @@ public class TablePanel extends JPanel{
     //}
 
     private void layoutComps() {
-
+        setBackground(Color.BLACK);
         add(scTablePanel, BorderLayout.CENTER);
-        add(toolBar, BorderLayout.SOUTH);
+
 
 
 

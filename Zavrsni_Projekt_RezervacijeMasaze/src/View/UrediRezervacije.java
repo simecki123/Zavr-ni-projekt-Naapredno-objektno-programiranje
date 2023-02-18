@@ -1,14 +1,21 @@
 package View;
 
 
+import Model.Rezervation;
+import Model.TimeEnum;
 import com.toedter.calendar.JDateChooser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UrediRezervacije extends JFrame {
@@ -36,6 +43,11 @@ public class UrediRezervacije extends JFrame {
     private JButton deleteALL;
     private JButton undo;
     private JButton redo;
+
+    private List<Rezervation> rezervations;
+    private DataPanelListener dataPanelListenerCreate;
+    private DataPanelListener dataPanelSearch;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public UrediRezervacije(){
         super("Edit Dates");
@@ -83,6 +95,8 @@ public class UrediRezervacije extends JFrame {
         editajPanel.add(deleteALL);
         editajPanel.add(undo);
         editajPanel.add(redo);
+
+        rezervations = new ArrayList<>();
     }
 
 
@@ -92,7 +106,79 @@ public class UrediRezervacije extends JFrame {
         add(stvoriPanel, BorderLayout.SOUTH);
     }
 
+
     private void activateApp() {
+        stvori.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(dateChooser.getDate() != null) {
+                    boolean vr = provjeriValiditivnost();
+                    if (vr) {
+                        for (int x = 0; x < TimeEnum.values().length; x++) {
+                            Rezervation rezervation = new Rezervation(null, null, null, null,
+                                    1, null, false, false, String.valueOf(TimeEnum.values()[x]),
+                                    simpleDateFormat.format(dateChooser.getDate()), null);
+                            rezervations.add(rezervation);
+                        }
+
+                        DataEvent dataEvent = new DataEvent(this, rezervations);
+                        dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
+                        dateChooser.setDate(null);
+                    } else{
+                        JOptionPane.showMessageDialog(new JFrame(), "Rezervations with that date already exist!!!", "Warning",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Date is not set!!!", "Warning",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        trazi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(dateChooser.getDate() != null) {
+                    List<Rezervation> odabraneRezervacije = new ArrayList<>();
+                    for(Rezervation rez : rezervations){
+                        if(rez.getDay().equals(simpleDateFormat.format(dateChooser.getDate()))){
+                            odabraneRezervacije.add(rez);
+                        }
+                    }
+                    DataEvent dataEvent = new DataEvent(this,odabraneRezervacije);
+                    dataPanelSearch.dataPanelEventOccured(dataEvent);
+                    dateChooser.setDate(null);
+
+                } else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Date is not set!!!", "Warning",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    private boolean provjeriValiditivnost(){
+        boolean vr = true;
+        for(int x = 0; x < rezervations.size(); x++){
+            Rezervation rezervation = rezervations.get(x);
+            if(rezervation.getDay().equals(simpleDateFormat.format(dateChooser.getDate()))){
+                vr = false;
+            }
+        }
+
+        return vr;
+    }
+
+    public void setDataPanelListenerCreate(DataPanelListener dataPanelListenerCreate) {
+        this.dataPanelListenerCreate = dataPanelListenerCreate;
+    }
+
+    public void setDataPanelSearch(DataPanelListener dataPanelSearch) {
+        this.dataPanelSearch = dataPanelSearch;
+    }
+
+    public Tablica getTablica() {
+        return tablica;
     }
 
     private void setIcons(){

@@ -1,5 +1,6 @@
 package View;
 
+import Model.DataBase;
 import Model.Rezervation;
 
 import javax.swing.*;
@@ -11,10 +12,12 @@ public class Tablica extends JTable{
 
     private AbstractTableModel dtm;
     private List<Rezervation> rezervations;
+    private List<Rezervation> activeReservations;
 
     public Tablica(){
         setTable();
         rezervations = new ArrayList<>();
+        activeReservations = new ArrayList<>();
 
     }
 
@@ -72,5 +75,16 @@ public class Tablica extends JTable{
 
     }
 
+    public void showDataOnTable( DataBase dataBase) {
 
+        rezervations = dataBase.getAllFromDB();
+        dtm.fireTableDataChanged();
+
+    }
+
+
+    public void setSearchedTable(List<Rezervation> rezervations) {
+        this.rezervations = rezervations;
+        dtm.fireTableDataChanged();
+    }
 }

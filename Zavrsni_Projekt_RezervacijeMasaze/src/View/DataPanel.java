@@ -9,6 +9,7 @@ import Model.TimeEnum;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,13 +60,22 @@ public class DataPanel extends JPanel {
 
 
     private void setBorders2Panel() {
-        Border inner = BorderFactory.createTitledBorder("Order");
-        Border outter = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-        Border brd = BorderFactory.createCompoundBorder(outter, inner);
-        setBorder(brd);
+
+        Border outer = BorderFactory.createEmptyBorder(5,5,5,5);
+        TitledBorder borderic = new TitledBorder("Data 1: ");
+        borderic.setTitleColor(Color.WHITE);
+        Border inner = borderic;
+
+        Border panelBorder = BorderFactory.createCompoundBorder(outer, inner);
+        setBorder(panelBorder);
+        Dimension dims = getPreferredSize();
+        dims.width = 180;
+        setPreferredSize(dims);
     }
 
     private void initAll() {
+        setBackground(Color.BLACK);
+
         nameField = new JTextField(10);
         phoneNumberField = new JTextField(10);
         mailField = new JTextField(10);
@@ -84,6 +94,8 @@ public class DataPanel extends JPanel {
 
         // Slider
         intezitetField = new JSlider(1,10,5);
+        intezitetField.setBackground(Color.BLACK);
+
         intezitetField.setMinorTickSpacing(2);
         intezitetField.setMajorTickSpacing(10);
         intezitetField.setPaintTicks(true);
@@ -97,7 +109,11 @@ public class DataPanel extends JPanel {
         // napitakIJacuzzy
         napitakIJacuzziField = new ButtonGroup();
         yesToJaccuzy = new JRadioButton("YES");
+        yesToJaccuzy.setBackground(Color.BLACK);
+        yesToJaccuzy.setForeground(Color.WHITE);
         noTOJacuzzy = new JRadioButton("NO");
+        noTOJacuzzy.setForeground(Color.WHITE);
+        noTOJacuzzy.setBackground(Color.BLACK);
         yesToJaccuzy.setSelected(true);
         napitakIJacuzziField.add(yesToJaccuzy);
         napitakIJacuzziField.add(noTOJacuzzy);
@@ -107,7 +123,11 @@ public class DataPanel extends JPanel {
         // Spa
         spaField = new ButtonGroup();
         yesToSpa = new JRadioButton("YES");
+        yesToSpa.setForeground(Color.WHITE);
+        yesToSpa.setBackground(Color.BLACK);
         noToSpa = new JRadioButton("NO");
+        noToSpa.setBackground(Color.BLACK);
+        noToSpa.setForeground(Color.WHITE);
         yesToSpa.setSelected(true);
         spaField.add(yesToSpa);
         spaField.add(noToSpa);
@@ -138,7 +158,9 @@ public class DataPanel extends JPanel {
 
         // Button
         submitButton = new JButton("SUBMIT");
+        submitButton.setBackground(Color.CYAN);
         clearButton = new JButton("CLEAR");
+        clearButton.setBackground(Color.CYAN);
 
 
     }
@@ -153,12 +175,16 @@ public class DataPanel extends JPanel {
         gbc.weightx = 0;
         gbc.weighty = 0;
 
-        add(new JLabel("Name and surname: "), gbc);
+        JLabel labelname = new JLabel("Name and surname: ");
+        labelname.setForeground(Color.WHITE);
+        add(labelname, gbc);
         gbc.gridy++;
         add(nameField, gbc);
         gbc.gridy--;
         gbc.gridx++;
-        add(new JLabel("Bevrage and Jacuzzy?"), gbc);
+        JLabel labelJacuzzy = new JLabel("Bevrage and Jacuzzy?");
+        labelJacuzzy.setForeground(Color.WHITE);
+        add(labelJacuzzy, gbc);
         gbc.gridy++;
         add(yesToJaccuzy, gbc);
         gbc.gridx++;
@@ -168,12 +194,16 @@ public class DataPanel extends JPanel {
         add(new JLabel("   "), gbc);
         gbc.gridy++;
         gbc.gridx = 0;
-        add(new JLabel("Phone number: "), gbc);
+        JLabel labelPhone = new JLabel("Phone number: ");
+        labelPhone.setForeground(Color.WHITE);
+        add(labelPhone, gbc);
         gbc.gridy ++;
         add(phoneNumberField, gbc);
         gbc.gridy--;
         gbc.gridx++;
-        add(new JLabel("Add SPA?"), gbc);
+        JLabel labelSpa = new JLabel("Add SPA?");
+        labelSpa.setForeground(Color.WHITE);
+        add(labelSpa, gbc);
         gbc.gridy++;
         add(yesToSpa, gbc);
         gbc.gridx++;
@@ -184,12 +214,16 @@ public class DataPanel extends JPanel {
         add(new JLabel("   "), gbc);
         gbc.gridy++;
         gbc.gridx = 0;
-        add(new JLabel("Mail: "), gbc);
+        JLabel labelmail = new JLabel("Mail: ");
+        labelmail.setForeground(Color.WHITE);
+        add(labelmail, gbc);
         gbc.gridy++;
         add(mailField, gbc);
         gbc.gridy--;
         gbc.gridx++;
-        add(new JLabel("Time:"), gbc);
+        JLabel labelTime = new JLabel("Time");
+        labelTime.setForeground(Color.WHITE);
+        add(labelTime, gbc);
         gbc.gridy++;
         add(time, gbc);
 
@@ -198,12 +232,16 @@ public class DataPanel extends JPanel {
         add(new JLabel("   "), gbc);
         gbc.gridy++;
         gbc.gridx = 0;
-        add(new JLabel("Massage type: "), gbc);
+        JLabel labelMasageTY = new JLabel("Massage type: ");
+        labelMasageTY.setForeground(Color.WHITE);
+        add(labelMasageTY, gbc);
         gbc.gridy++;
         add(massageTypeField, gbc);
         gbc.gridy--;
         gbc.gridx++;
-        add(new JLabel("Day: "), gbc);
+        JLabel labelDay = new JLabel("Day: ");
+        labelDay.setForeground(Color.WHITE);
+        add(labelDay, gbc);
         gbc.gridy++;
         add(dayField, gbc);
 
@@ -211,7 +249,9 @@ public class DataPanel extends JPanel {
         add(new JLabel("   "), gbc);
         gbc.gridy++;
 
-        add(new JLabel("Intesity: "), gbc);
+        JLabel labelIntesity = new JLabel("Intesity: ");
+        labelIntesity.setForeground(Color.WHITE);
+        add(labelIntesity, gbc);
         gbc.gridy++;
         add(intezitetField, gbc);
 
@@ -219,9 +259,13 @@ public class DataPanel extends JPanel {
         add(new JLabel("   "), gbc);
         gbc.gridy++;
         gbc.gridx = 0;
-        add(new JLabel("Add note: "), gbc);
+        JLabel labelNote = new JLabel("Add Note: ");
+        labelNote.setForeground(Color.WHITE);
+        add(labelNote, gbc);
         gbc.gridx++;
-        add(new JLabel("Cijena u €: "), gbc);
+        JLabel labelCijena = new JLabel("Price in €: ");
+        labelCijena.setForeground(Color.WHITE);
+        add(labelCijena, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
         add(skrolNote, gbc);
@@ -267,6 +311,7 @@ public class DataPanel extends JPanel {
         yesToJaccuzy.setSelected(true);
         yesToSpa.setSelected(true);
         intezitetField.setValue(5);
+        dayField.setDate(null);
         setPrice();
     }
 

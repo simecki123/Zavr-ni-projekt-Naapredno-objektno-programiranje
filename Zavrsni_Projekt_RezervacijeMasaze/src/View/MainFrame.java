@@ -1,5 +1,7 @@
 package View;
 
+import Controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +15,14 @@ import java.util.Properties;
 public class MainFrame extends JFrame {
     private PregledRezervacijaPanel pregledRezervacijaPanel;
     private UrediRezervacije urediRezervacije;
+    private NapraviRezervacijeCLS napraviRezervacijeCLS;
 
     private JPanel panelBottuns;
     private JButton botunUrediRezervacijeZaDatum;
     private JButton napraviRezervaciju;
     private JButton pregledRasporeda;
     private JPanel slikaPanel;
+    private Controller controller;
 
 
     public MainFrame(){
@@ -40,6 +44,7 @@ public class MainFrame extends JFrame {
 
         pregledRezervacijaPanel = new PregledRezervacijaPanel();
         urediRezervacije = new UrediRezervacije();
+        napraviRezervacijeCLS = new NapraviRezervacijeCLS();
 
         panelBottuns = new JPanel();
         panelBottuns.setSize(600,100);
@@ -84,6 +89,8 @@ public class MainFrame extends JFrame {
         JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
         slikaPanel.add(picLabel);
 
+        controller = new Controller();
+
 
     }
 
@@ -105,6 +112,26 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 urediRezervacije.setVisible(true);
+            }
+        });
+        napraviRezervaciju.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                napraviRezervacijeCLS.setVisible(true);
+            }
+        });
+
+        urediRezervacije.setDataPanelListenerCreate(new DataPanelListener() {
+            @Override
+            public void dataPanelEventOccured(DataEvent dataEvent) {
+                controller.addNewElementsInDatabase(dataEvent.getRezervations(),urediRezervacije.getTablica());
+
+            }
+        });
+        urediRezervacije.setDataPanelSearch(new DataPanelListener() {
+            @Override
+            public void dataPanelEventOccured(DataEvent dataEvent) {
+                controller.addElementsUserIsSearchingFor(dataEvent.getRezervations(), urediRezervacije.getTablica());
             }
         });
     }
