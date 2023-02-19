@@ -20,33 +20,96 @@ import java.util.*;
 import java.util.List;
 
 public class DataPanel extends JPanel {
+    /**
+     * Variable that presents name field.
+     */
     private JTextField nameField;
+    /**
+     * Variable that presents phone number field.
+     */
     private JTextField phoneNumberField;
+    /**
+     * Variable that presents e-mail field.
+     */
     private JTextField mailField;
+    /**
+     * Variable that presents massageType combo box.
+     */
     private JComboBox<MassageType> massageTypeField;
+    /**
+     * Variable that presents value of JSlider.
+     */
     private JSlider intezitetField;
+    /**
+     * Variable that presents Scroll pane for "addNote".
+     */
     private JScrollPane skrolNote;
+    /**
+     * Variable that presents addNote text Area.
+     */
     private JTextArea addNoteField;
+    /**
+     * Variable that presents button group for some ability.
+     */
     private ButtonGroup napitakIJacuzziField;
     private JRadioButton yesToJaccuzy;
     private JRadioButton noTOJacuzzy;
+    /**
+     * Variable that presents button group for some ability.
+     */
     private ButtonGroup spaField;
     private JRadioButton yesToSpa;
     private JRadioButton noToSpa;
+    /**
+     * Variable that presents chosen Time for reservation.
+     */
     private JComboBox<TimeEnum> time;
+    /**
+     * Variable that presents day chosen by dateChooser.
+     */
     private JDateChooser dayField;
+    /**
+     * Variable that presents price of reservation.
+     */
     private JTextField price;
+    /**
+     * Clear all.
+     */
     private JButton clearButton;
+    /**
+     * Submit.
+     */
     private JButton submitButton;
 
     private DefaultComboBoxModel<MassageType> massageModel;
+    /**
+     * Reservation.
+     */
     private Rezervation rezervation;
+    /**
+     * Variable that presents all Objects from DataBase.
+     */
     private List<Rezervation> rezervationsFromDataBase;
+    /**
+     * Simple date format.
+     */
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    /**
+     * Listener for button Search.
+     */
     private DataPanelListener dplSearchDate;
+    /**
+     * Listener for button Submit.
+     */
     private DataPanelListener dplSubmitRezervation;
 
+    /**
+     * Final vale of some defined price.
+     */
     private final int napitakIJacuzzyprice = 40;
+    /**
+     * Final vale of some defined price.
+     */
     private final int spaPice = 60;
 
 
@@ -62,7 +125,6 @@ public class DataPanel extends JPanel {
         layoutComps();
         activateDataPanel();
     }
-
 
 
     private void setBorders2Panel() {
@@ -291,22 +353,33 @@ public class DataPanel extends JPanel {
 
     }
 
-    public Rezervation getRezervation() {
-        return rezervation;
-    }
 
+    /**
+     * Method to set values from DataBase.
+     * @param rezervationsFromDataBase
+     */
     public void setRezervationsFromDataBase(List<Rezervation> rezervationsFromDataBase) {
         this.rezervationsFromDataBase = rezervationsFromDataBase;
     }
 
+    /**
+     * Method that sets Listener for "Search".
+     * @param dplSearchDate new DataPanelListener.
+     */
     public void setDplSearchDate(DataPanelListener dplSearchDate) {
         this.dplSearchDate = dplSearchDate;
     }
-
+    /**
+     * Method that sets Listener for "Submit".
+     * @param dplSubmitRezervation new DataPanelListener.
+     */
     public void setDplSubmitRezervation(DataPanelListener dplSubmitRezervation) {
         this.dplSubmitRezervation = dplSubmitRezervation;
     }
 
+    /**
+     * Method that sets new price.
+     */
     private void setPrice(){
         MassageType tipM = (MassageType) massageModel.getSelectedItem();
         int novaCijena = 0;
@@ -320,6 +393,9 @@ public class DataPanel extends JPanel {
         price.setText(String.valueOf(novaCijena));
     }
 
+    /**
+     * Clear All method.
+     */
     private void clearAll(){
         nameField.setText(null);
         phoneNumberField.setText(null);
@@ -330,6 +406,20 @@ public class DataPanel extends JPanel {
         yesToSpa.setSelected(true);
         intezitetField.setValue(5);
         setPrice();
+    }
+
+    /**
+     * Set all reservations from some defined date.
+     * @return return reservations.
+     */
+    public List<Rezervation> setZeljeneRezervacije(){
+        List<Rezervation> odabraneRezervacije = new ArrayList<>();
+        for (Rezervation rez : rezervationsFromDataBase) {
+            if (rez.getDay().equals(simpleDateFormat.format(dayField.getDate()))) {
+                odabraneRezervacije.add(rez);
+            }
+        }
+        return odabraneRezervacije;
     }
 
     private void activateDataPanel() {
@@ -377,11 +467,7 @@ public class DataPanel extends JPanel {
                 if ("date".equals(e.getPropertyName())) {
                     List<Rezervation> odabraneRezervacije = new ArrayList<>();
                     if(dplSearchDate != null) {
-                        for (Rezervation rez : rezervationsFromDataBase) {
-                            if (rez.getDay().equals(simpleDateFormat.format(dayField.getDate()))) {
-                                odabraneRezervacije.add(rez);
-                            }
-                        }
+                        odabraneRezervacije = setZeljeneRezervacije();
                         DataEvent dataEvent = new DataEvent(this, odabraneRezervacije);
                         dplSearchDate.dataPanelEventOccured(dataEvent);
                     }

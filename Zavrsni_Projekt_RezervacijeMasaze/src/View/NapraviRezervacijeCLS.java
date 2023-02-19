@@ -8,8 +8,17 @@ import java.awt.*;
 import java.util.List;
 
 public class NapraviRezervacijeCLS extends JFrame {
+    /**
+     * Our data panel.
+     */
     private DataPanel dataPanel;
+    /**
+     * Our table
+     */
     private TablePanel tablePanel;
+    /**
+     * Controller from MainFrame.
+     */
     private Controller controller;
 
 
@@ -60,7 +69,7 @@ public class NapraviRezervacijeCLS extends JFrame {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
                 controller.addNewElementsInDatabase(dataEvent.getRezervations());
-                controller.addElementsUserIsSearchingFor(dataEvent.getRezervations(), tablePanel.getTablica());
+                controller.addElementsUserIsSearchingFor(dataPanel.setZeljeneRezervacije(),tablePanel.getTablica());
             }
         });
     }

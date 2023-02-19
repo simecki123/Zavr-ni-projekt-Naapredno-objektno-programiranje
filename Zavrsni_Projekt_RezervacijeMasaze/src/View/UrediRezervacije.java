@@ -19,34 +19,97 @@ import java.util.List;
 
 
 public class UrediRezervacije extends JFrame {
+    /**
+     * Image.
+     */
     private Image image;
+    /**
+     * Icon.
+     */
     private ImageIcon clearRowwIcon;
+    /**
+     * Icon.
+     */
     private ImageIcon clearTableIcon;
+    /**
+     * Icon.
+     */
     private ImageIcon deleteTableIcon;
+    /**
+     * Icon.
+     */
     private ImageIcon undoIcon;
+    /**
+     * Icon.
+     */
     private ImageIcon redoIcon;
 
+    /**
+     * Panel.
+     */
     private JPanel stvoriPanel;
+    /**
+     * ToolBar.
+     */
     private JToolBar editajPanel;
-
+    /**
+     * Table.
+     */
     private Tablica tablica;
 
+    /**
+     * ScrollPane that holds table.
+     */
     private JScrollPane jScrollPane;
 
-
+    /**
+     * Date Chooser.
+     */
     private JDateChooser dateChooser;
+    /**
+     * Button
+     */
     private JButton stvori;
+    /**
+     * Button
+     */
     private JButton trazi;
-
+    /**
+     * Button
+     */
     private JButton clearRow;
+    /**
+     * Button
+     */
     private JButton clearAll;
+    /**
+     * Button
+     */
     private JButton deleteALL;
+    /**
+     * Button
+     */
     private JButton undo;
+    /**
+     * Button
+     */
     private JButton redo;
 
+    /**
+     * Reservations from dataBase and new that ve create.
+     */
     private List<Rezervation> rezervations;
+    /**
+     * DataPanelListener.
+     */
     private DataPanelListener dataPanelListenerCreate;
+    /**
+     * DataPanelListener.
+     */
     private DataPanelListener dataPanelSearch;
+    /**
+     * SimpleDataFormat.
+     */
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public UrediRezervacije(){
@@ -157,6 +220,10 @@ public class UrediRezervacije extends JFrame {
         });
     }
 
+    /**
+     * Method that checks if reseravtions with defined date already exist.
+     * @return boolean value.
+     */
     private boolean provjeriValiditivnost(){
         boolean vr = true;
         for(int x = 0; x < rezervations.size(); x++){
@@ -181,6 +248,9 @@ public class UrediRezervacije extends JFrame {
         return tablica;
     }
 
+    /**
+     * Method that sets icons to out TollBar buttons.
+     */
     private void setIcons(){
         try {
             clearRowwIcon = new ImageIcon();

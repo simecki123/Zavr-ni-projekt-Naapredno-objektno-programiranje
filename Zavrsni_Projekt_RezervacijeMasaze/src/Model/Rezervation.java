@@ -3,16 +3,49 @@ package Model;
 import java.io.Serializable;
 
 public class Rezervation implements Serializable {
+    /**
+     * Variable name of Client.
+     */
     private String name;
+    /**
+     * Variable that contains phone number of Client.
+     */
     private String phoneNumber;
+    /**
+     * Variable that contains e-mail of Client.
+     */
     private String mail;
+    /**
+     * Variable that contains selected massage type.
+     */
     private String massageType;
+    /**
+     * Variable that contains intensity value.
+     */
     private int intesityValue;
+    /**
+     * Variable that contains special note that Client requested.
+     */
     private String specNote;
+    /**
+     * Variable that contain Clients choice.
+     */
     private boolean napitakIJacuzzy;
+    /**
+     * Variable that contain Clients choice.
+     */
     private boolean spaOffer;
+    /**
+     * Variable that contains wanted time of reservation.
+     */
     private String time;
+    /**
+     * Variable that contains choosen date.
+     */
     private String day;
+    /**
+     * Variable that holds price of reservation.
+     */
     private String price;
 
 
@@ -33,6 +66,7 @@ public class Rezervation implements Serializable {
     }
 
     public Rezervation(){}
+
 
     public String getName() {
         return name;

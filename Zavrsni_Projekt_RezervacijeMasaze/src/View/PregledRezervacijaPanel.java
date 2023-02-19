@@ -15,15 +15,38 @@ import java.util.List;
 
 
 public class PregledRezervacijaPanel extends JFrame {
+    /**
+     * Our table.
+     */
     private Tablica tablicaPregleda;
+    /**
+     * Scroll table that contains table.
+     */
     private JScrollPane scTablePanel;
-    private AbstractTableModel dtm;
+    /**
+     * Date Chooser.
+     */
     private JDateChooser dateChooser;
+    /**
+     * Button.
+     */
     private JButton pretrazi;
+    /**
+     * Panel that holds date and button.
+     */
     private JPanel panelZaDatum;
 
+    /**
+     * All objects from dataBase.
+     */
     private List<Rezervation> rezervations;
+    /**
+     * DataPanelListener.
+     */
     private DataPanelListener panelListenerSearch;
+    /**
+     * Simple date format.
+     */
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public PregledRezervacijaPanel(){
@@ -67,6 +90,10 @@ public class PregledRezervacijaPanel extends JFrame {
 
     }
 
+    public Tablica getTable() {
+        return tablicaPregleda;
+    }
+
     private void activateApp() {
         pretrazi.addActionListener(new ActionListener() {
             @Override
@@ -92,7 +119,5 @@ public class PregledRezervacijaPanel extends JFrame {
 
     }
 
-    public Tablica getTable() {
-        return tablicaPregleda;
-    }
+
 }

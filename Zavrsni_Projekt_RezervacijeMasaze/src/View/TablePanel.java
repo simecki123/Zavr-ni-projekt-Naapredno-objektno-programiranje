@@ -1,20 +1,25 @@
 package View;
 
-import Model.Rezervation;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class TablePanel extends JPanel{
 
+    /**
+     * Our table.
+     */
     private Tablica tablica;
+    /**
+     * Scroll pane that contains table.
+     */
     private JScrollPane scTablePanel;
 
 
 
-    private List<Rezervation> rezervations;
+
 
     public TablePanel(){
         Dimension dim = getPreferredSize();
@@ -32,19 +37,12 @@ public class TablePanel extends JPanel{
         scTablePanel = new JScrollPane(tablica, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 
-
-        rezervations = new ArrayList<>();
-
     }
 
     public Tablica getTablica() {
         return tablica;
     }
 
-
-    //public void setDBData(DataBase db) {
-    //    programmers = db.getAll4DB();
-    //}
 
     private void layoutComps() {
         setBackground(Color.BLACK);

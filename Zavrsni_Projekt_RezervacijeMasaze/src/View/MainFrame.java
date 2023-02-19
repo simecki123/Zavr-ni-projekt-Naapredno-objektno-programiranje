@@ -13,15 +13,42 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class MainFrame extends JFrame {
+    /**
+     * Frame for view above all reservations.
+     */
     private PregledRezervacijaPanel pregledRezervacijaPanel;
+    /**
+     * Frame that allows as to register reservations.
+     */
     private UrediRezervacije urediRezervacije;
+    /**
+     * Frame that makes new reservations for some date.
+     */
     private NapraviRezervacijeCLS napraviRezervacijeCLS;
 
+    /**
+     * Panel that holds some variables(Buttons).
+     */
     private JPanel panelBottuns;
+    /**
+     * Button
+     */
     private JButton botunUrediRezervacijeZaDatum;
+    /**
+     * Button
+     */
     private JButton napraviRezervaciju;
+    /**
+     * Button
+     */
     private JButton pregledRasporeda;
+    /**
+     * Panel for picture.
+     */
     private JPanel slikaPanel;
+    /**
+     * Our controller.
+     */
     private Controller controller;
 
 

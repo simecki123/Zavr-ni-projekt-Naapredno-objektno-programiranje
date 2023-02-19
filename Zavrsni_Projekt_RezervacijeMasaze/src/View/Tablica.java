@@ -75,6 +75,10 @@ public class Tablica extends JTable{
 
     }
 
+    /**
+     * Method that shows all dataBase objects on our table.
+     * @param dataBase dataBase.
+     */
     public void showDataOnTable( DataBase dataBase) {
 
         rezervations = dataBase.getAllFromDB();
@@ -82,7 +86,10 @@ public class Tablica extends JTable{
 
     }
 
-
+    /**
+     * Sets reservations that we searched for.
+     * @param rezervations reservations
+     */
     public void setSearchedTable(List<Rezervation> rezervations) {
         this.rezervations = rezervations;
         dtm.fireTableDataChanged();
