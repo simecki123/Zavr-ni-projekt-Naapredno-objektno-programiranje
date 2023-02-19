@@ -89,7 +89,8 @@ public class MainFrame extends JFrame {
         JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
         slikaPanel.add(picLabel);
 
-        controller = new Controller();
+        controller = new Controller(urediRezervacije,pregledRezervacijaPanel, napraviRezervacijeCLS);
+        napraviRezervacijeCLS.setController(controller);
 
 
     }
@@ -124,8 +125,9 @@ public class MainFrame extends JFrame {
         urediRezervacije.setDataPanelListenerCreate(new DataPanelListener() {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
-                controller.addNewElementsInDatabase(dataEvent.getRezervations(),urediRezervacije.getTablica());
-                controller.updateOtherPanels(dataEvent.getRezervations(), pregledRezervacijaPanel, napraviRezervacijeCLS);
+                controller.addNewElementsInDatabase(dataEvent.getRezervations());
+                controller.showDataOnTable(urediRezervacije.getTablica());
+                controller.updateOtherPanels(dataEvent.getRezervations());
             }
         });
         urediRezervacije.setDataPanelSearch(new DataPanelListener() {
@@ -141,6 +143,10 @@ public class MainFrame extends JFrame {
                 controller.addElementsUserIsSearchingFor(dataEvent.getRezervations(), pregledRezervacijaPanel.getTable());
             }
         });
+
+
+
+
     }
 
 

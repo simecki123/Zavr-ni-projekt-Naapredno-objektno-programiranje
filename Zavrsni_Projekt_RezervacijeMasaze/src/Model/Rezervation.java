@@ -6,7 +6,7 @@ public class Rezervation implements Serializable {
     private String name;
     private String phoneNumber;
     private String mail;
-    private MassageType massageType;
+    private String massageType;
     private int intesityValue;
     private String specNote;
     private boolean napitakIJacuzzy;
@@ -17,7 +17,7 @@ public class Rezervation implements Serializable {
 
 
 
-    public Rezervation(String name, String phoneNumber, String mail, MassageType masss
+    public Rezervation(String name, String phoneNumber, String mail, String masss
                        , int intesityValue, String specNote, boolean napitakIJacuzzy, boolean spaOffer, String time, String day, String price){
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -46,7 +46,7 @@ public class Rezervation implements Serializable {
         return mail;
     }
 
-    public MassageType getMassageType() {
+    public String getMassageType() {
         return massageType;
     }
     public int getIntesityValue() {

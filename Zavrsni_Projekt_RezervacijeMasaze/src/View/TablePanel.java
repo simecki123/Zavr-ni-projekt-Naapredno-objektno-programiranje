@@ -37,12 +37,9 @@ public class TablePanel extends JPanel{
 
     }
 
-
-
-
-
-
-
+    public Tablica getTablica() {
+        return tablica;
+    }
 
 
     //public void setDBData(DataBase db) {

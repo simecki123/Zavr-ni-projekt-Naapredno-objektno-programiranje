@@ -13,7 +13,10 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
 
 public class DataPanel extends JPanel {
@@ -38,7 +41,10 @@ public class DataPanel extends JPanel {
 
     private DefaultComboBoxModel<MassageType> massageModel;
     private Rezervation rezervation;
-
+    private List<Rezervation> rezervationsFromDataBase;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private DataPanelListener dplSearchDate;
+    private DataPanelListener dplSubmitRezervation;
 
     private final int napitakIJacuzzyprice = 40;
     private final int spaPice = 60;
@@ -161,6 +167,8 @@ public class DataPanel extends JPanel {
         submitButton.setBackground(Color.CYAN);
         clearButton = new JButton("CLEAR");
         clearButton.setBackground(Color.CYAN);
+
+        rezervationsFromDataBase = new ArrayList<>();
 
 
     }
@@ -287,7 +295,17 @@ public class DataPanel extends JPanel {
         return rezervation;
     }
 
+    public void setRezervationsFromDataBase(List<Rezervation> rezervationsFromDataBase) {
+        this.rezervationsFromDataBase = rezervationsFromDataBase;
+    }
 
+    public void setDplSearchDate(DataPanelListener dplSearchDate) {
+        this.dplSearchDate = dplSearchDate;
+    }
+
+    public void setDplSubmitRezervation(DataPanelListener dplSubmitRezervation) {
+        this.dplSubmitRezervation = dplSubmitRezervation;
+    }
 
     private void setPrice(){
         MassageType tipM = (MassageType) massageModel.getSelectedItem();
@@ -311,7 +329,6 @@ public class DataPanel extends JPanel {
         yesToJaccuzy.setSelected(true);
         yesToSpa.setSelected(true);
         intezitetField.setValue(5);
-        dayField.setDate(null);
         setPrice();
     }
 
@@ -354,6 +371,72 @@ public class DataPanel extends JPanel {
             }
         });
 
+        dayField.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if ("date".equals(e.getPropertyName())) {
+                    List<Rezervation> odabraneRezervacije = new ArrayList<>();
+                    if(dplSearchDate != null) {
+                        for (Rezervation rez : rezervationsFromDataBase) {
+                            if (rez.getDay().equals(simpleDateFormat.format(dayField.getDate()))) {
+                                odabraneRezervacije.add(rez);
+                            }
+                        }
+                        DataEvent dataEvent = new DataEvent(this, odabraneRezervacije);
+                        dplSearchDate.dataPanelEventOccured(dataEvent);
+                    }
+
+                }
+
+            }
+        });
+
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(dplSearchDate != null){
+                    if(!(rezervationsFromDataBase.isEmpty())) {
+                        if (!(nameField.getText().equals("") || mailField.getText().equals("") || phoneNumberField.getText().equals("") || simpleDateFormat.format(dayField.getDate()).equals(""))) {
+                            rezervation = new Rezervation(nameField.getText(), phoneNumberField.getText(), mailField.getText(),
+                                    String.valueOf(massageTypeField.getSelectedItem()), intezitetField.getValue(), addNoteField.getText(),
+                                    yesToJaccuzy.isSelected(), yesToSpa.isSelected(), String.valueOf(time.getSelectedItem()),
+                                    simpleDateFormat.format(dayField.getDate()), price.getText());
+
+                            int brojac = 0;
+                            boolean vr = false;
+                            for (Rezervation rez : rezervationsFromDataBase) {
+                                if (rez.getName().equals("")) {
+                                    if (rez.getDay().equals(rezervation.getDay()) & rez.getTime().equals(rezervation.getTime())) {
+                                        rezervationsFromDataBase.set(brojac, rezervation);
+                                        vr = true;
+                                    }
+                                }
+                                brojac++;
+                            }
+
+                            if (vr) {
+                                DataEvent dataEvent = new DataEvent(this, rezervationsFromDataBase);
+                                dplSubmitRezervation.dataPanelEventOccured(dataEvent);
+                                clearAll();
+
+                            } else {
+                                JOptionPane.showMessageDialog(new JFrame(), "That massage is already reserved!!!", "Warning",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+
+
+
+                        } else {
+                            JOptionPane.showMessageDialog(new JFrame(), "Please fill all folowing text fields!!!", "Warning",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else{
+                        JOptionPane.showMessageDialog(new JFrame(), "There is no available massages, please wait!!!", "Warning",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
 
     }
 

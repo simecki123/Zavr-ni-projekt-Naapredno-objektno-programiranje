@@ -115,8 +115,8 @@ public class UrediRezervacije extends JFrame {
                     boolean vr = provjeriValiditivnost();
                     if (vr) {
                         for (int x = 0; x < TimeEnum.values().length; x++) {
-                            Rezervation rezervation = new Rezervation(null, null, null, null,
-                                    1, null, false, false, String.valueOf(TimeEnum.values()[x]),
+                            Rezervation rezervation = new Rezervation("", "", "", "",
+                                    1, "", false, false, String.valueOf(TimeEnum.values()[x]),
                                     simpleDateFormat.format(dateChooser.getDate()), null);
                             rezervations.add(rezervation);
                         }
@@ -209,4 +209,7 @@ public class UrediRezervacije extends JFrame {
     }
 
 
+    public void setRezervations(List<Rezervation> rezervations) {
+        this.rezervations = rezervations;
+    }
 }
