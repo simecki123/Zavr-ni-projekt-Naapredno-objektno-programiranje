@@ -20,38 +20,14 @@ import java.util.List;
 
 public class UrediRezervacije extends JFrame {
     /**
-     * Image.
+     * ToolBar class.
      */
-    private Image image;
-    /**
-     * Icon.
-     */
-    private ImageIcon clearRowwIcon;
-    /**
-     * Icon.
-     */
-    private ImageIcon clearTableIcon;
-    /**
-     * Icon.
-     */
-    private ImageIcon deleteTableIcon;
-    /**
-     * Icon.
-     */
-    private ImageIcon undoIcon;
-    /**
-     * Icon.
-     */
-    private ImageIcon redoIcon;
-
+    private ToolBar toolBar;
     /**
      * Panel.
      */
     private JPanel stvoriPanel;
-    /**
-     * ToolBar.
-     */
-    private JToolBar editajPanel;
+
     /**
      * Table.
      */
@@ -74,26 +50,7 @@ public class UrediRezervacije extends JFrame {
      * Button
      */
     private JButton trazi;
-    /**
-     * Button
-     */
-    private JButton clearRow;
-    /**
-     * Button
-     */
-    private JButton clearAll;
-    /**
-     * Button
-     */
-    private JButton deleteALL;
-    /**
-     * Button
-     */
-    private JButton undo;
-    /**
-     * Button
-     */
-    private JButton redo;
+
 
     /**
      * Reservations from dataBase and new that ve create.
@@ -136,12 +93,7 @@ public class UrediRezervacije extends JFrame {
         trazi = new JButton("Search");
         trazi.setBackground(Color.CYAN);
 
-        setIcons();
-        clearRow = new JButton(clearRowwIcon);
-        clearAll = new JButton(clearTableIcon);
-        deleteALL = new JButton(deleteTableIcon);
-        undo = new JButton(undoIcon);
-        redo = new JButton(redoIcon);
+        toolBar = new ToolBar();
 
 
         stvoriPanel = new JPanel();
@@ -151,20 +103,14 @@ public class UrediRezervacije extends JFrame {
         stvoriPanel.add(stvori);
         stvoriPanel.add(trazi);
 
-        editajPanel = new JToolBar();
-        editajPanel.setSize(1000,100);
-        editajPanel.add(clearRow);
-        editajPanel.add(clearAll);
-        editajPanel.add(deleteALL);
-        editajPanel.add(undo);
-        editajPanel.add(redo);
+
 
         rezervations = new ArrayList<>();
     }
 
 
     private void layoutAll() {
-        add(editajPanel,BorderLayout.NORTH);
+        add(toolBar.getToolBar(),BorderLayout.NORTH);
         add(jScrollPane, BorderLayout.CENTER);
         add(stvoriPanel, BorderLayout.SOUTH);
     }
@@ -248,35 +194,7 @@ public class UrediRezervacije extends JFrame {
         return tablica;
     }
 
-    /**
-     * Method that sets icons to out TollBar buttons.
-     */
-    private void setIcons(){
-        try {
-            clearRowwIcon = new ImageIcon();
-            image = ImageIO.read(new File("Zavrsni_Projekt_RezervacijeMasaze/src/Slike/delete.png"));
-            clearRowwIcon.setImage(image.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 
-            clearTableIcon = new ImageIcon();
-            image = ImageIO.read(new File("Zavrsni_Projekt_RezervacijeMasaze/src/Slike/clear.png"));
-            clearTableIcon.setImage(image.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-
-            deleteTableIcon = new ImageIcon();
-            image = ImageIO.read(new File("Zavrsni_Projekt_RezervacijeMasaze/src/Slike/deleteTable.png"));
-            deleteTableIcon.setImage(image.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-
-            undoIcon = new ImageIcon();
-            image = ImageIO.read(new File("Zavrsni_Projekt_RezervacijeMasaze/src/Slike/undo.png"));
-            undoIcon.setImage(image.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-
-            redoIcon = new ImageIcon();
-            image = ImageIO.read(new File("Zavrsni_Projekt_RezervacijeMasaze/src/Slike/redo.png"));
-            redoIcon.setImage(image.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
     public void setRezervations(List<Rezervation> rezervations) {
