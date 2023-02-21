@@ -3,7 +3,7 @@ package View;
 
 import Controller.AbstractComand;
 import Controller.ClearRowCMND;
-import Controller.ClearTable;
+import Controller.ClearTableMND;
 import Controller.DeleteTableCMND;
 import Model.Rezervation;
 import Model.TimeEnum;
@@ -77,7 +77,7 @@ public class UrediRezervacije extends JFrame {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private final ClearRowCMND clearRowCMND = new ClearRowCMND(this);
-    private final ClearTable clearTable = new ClearTable(this);
+    private final ClearTableMND clearTable = new ClearTableMND(this);
     private final DeleteTableCMND deleteTableCMND = new DeleteTableCMND(this);
     private AbstractComand activeComand;
 

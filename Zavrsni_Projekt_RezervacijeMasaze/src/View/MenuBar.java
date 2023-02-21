@@ -3,7 +3,7 @@ package View;
 import Controller.Controller;
 import Controller.AbstractComand;
 import Controller.ClearRowCMND;
-import Controller.ClearTable;
+import Controller.ClearTableMND;
 import Controller.DeleteTableCMND;
 
 import javax.swing.*;
@@ -35,7 +35,7 @@ public class MenuBar {
     /**
      * ClearTable Command.
      */
-    private ClearTable clearTableCmnd;
+    private ClearTableMND clearTableCmnd;
     /**
      * DeleteTable Command.
      */
@@ -100,7 +100,7 @@ public class MenuBar {
         this.clearRowCMND = clearRowCMND;
     }
 
-    public void setClearTableCmnd(ClearTable clearTableCmnd) {
+    public void setClearTableCmnd(ClearTableMND clearTableCmnd) {
         this.clearTableCmnd = clearTableCmnd;
     }
 

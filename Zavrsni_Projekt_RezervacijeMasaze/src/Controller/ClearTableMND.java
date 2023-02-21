@@ -2,8 +2,8 @@ package Controller;
 
 import View.UrediRezervacije;
 
-public class ClearTable extends AbstractComand{
-    public ClearTable(UrediRezervacije urediRezervacije) {
+public class ClearTableMND extends AbstractComand{
+    public ClearTableMND(UrediRezervacije urediRezervacije) {
         super(urediRezervacije);
     }
 

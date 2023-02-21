@@ -2,7 +2,7 @@ package View;
 
 import Controller.AbstractComand;
 import Controller.ClearRowCMND;
-import Controller.ClearTable;
+import Controller.ClearTableMND;
 import Controller.DeleteTableCMND;
 
 import javax.imageio.ImageIO;
@@ -70,7 +70,7 @@ public class ToolBar {
     /**
      * ClearTable Command.
      */
-    private ClearTable clearTable;
+    private ClearTableMND clearTable;
     /**
      * DeleteTable Command.
      */
@@ -185,7 +185,7 @@ public class ToolBar {
         this.clearRowCMND = clearRowCMND;
     }
 
-    public void setClearTable(ClearTable clearTable) {
+    public void setClearTable(ClearTableMND clearTable) {
         this.clearTable = clearTable;
     }
 
