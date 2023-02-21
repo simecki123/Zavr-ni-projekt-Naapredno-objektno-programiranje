@@ -23,6 +23,10 @@ import java.util.Stack;
 
 public class UrediRezervacije extends JFrame {
     /**
+     * MenuBar.
+     */
+    private MenuBar menuBar;
+    /**
      * ToolBar class.
      */
     private ToolBar toolBar;
@@ -106,6 +110,8 @@ public class UrediRezervacije extends JFrame {
         trazi = new JButton("Search");
         trazi.setBackground(Color.CYAN);
 
+        menuBar = new MenuBar();
+
         toolBar = new ToolBar();
 
 
@@ -120,6 +126,10 @@ public class UrediRezervacije extends JFrame {
 
         rezervations = new ArrayList<>();
 
+        menuBar.setClearRowCMND(clearRowCMND);
+        menuBar.setClearTableCmnd(clearTable);
+        menuBar.setDeleteTableCMND(deleteTableCMND);
+
         toolBar.setClearRowCMND(clearRowCMND);
         toolBar.setClearTable(clearTable);
         toolBar.setDeleteTableCMND(deleteTableCMND);
@@ -133,6 +143,7 @@ public class UrediRezervacije extends JFrame {
 
 
     private void layoutAll() {
+        setJMenuBar(menuBar.getMenuBar());
         add(toolBar.getToolBar(),BorderLayout.NORTH);
         add(jScrollPane, BorderLayout.CENTER);
         add(stvoriPanel, BorderLayout.SOUTH);
@@ -234,6 +245,7 @@ public class UrediRezervacije extends JFrame {
 
             activeComand = undoCommand.pop();
             toolBar.setActiveComand(activeComand);
+            menuBar.setActiveComand(activeComand);
             rezervations = undoList.pop();
 
             DataEvent dataEvent = new DataEvent(this,rezervations);
@@ -253,6 +265,7 @@ public class UrediRezervacije extends JFrame {
 
             activeComand = redoCommand.pop();
             toolBar.setActiveComand(activeComand);
+            menuBar.setActiveComand(activeComand);
             rezervations = redoList.pop();
 
             DataEvent dataEvent = new DataEvent(this,rezervations);
@@ -272,6 +285,7 @@ public class UrediRezervacije extends JFrame {
             rezervations = new ArrayList<>();
             activeComand = deleteTableCMND;
             toolBar.setActiveComand(activeComand);
+            menuBar.setActiveComand(activeComand);
 
             DataEvent dataEvent = new DataEvent(this, rezervations);
             dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -300,6 +314,7 @@ public class UrediRezervacije extends JFrame {
             undoCommand.add(activeComand);
             activeComand = clearTable;
             toolBar.setActiveComand(activeComand);
+            menuBar.setActiveComand(activeComand);
 
             DataEvent dataEvent = new DataEvent(this, rezervations);
             dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -333,6 +348,7 @@ public class UrediRezervacije extends JFrame {
                 undoCommand.add(activeComand);
                 activeComand = clearRowCMND;
                 toolBar.setActiveComand(activeComand);
+                menuBar.setActiveComand(activeComand);
 
                 DataEvent dataEvent = new DataEvent(this, rezervations);
                 dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
