@@ -1,21 +1,24 @@
 package View;
 
 
+import Controller.AbstractComand;
+import Controller.ClearRowCMND;
+import Controller.ClearTable;
+import Controller.DeleteTableCMND;
 import Model.Rezervation;
 import Model.TimeEnum;
 import com.toedter.calendar.JDateChooser;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 
 public class UrediRezervacije extends JFrame {
@@ -69,6 +72,16 @@ public class UrediRezervacije extends JFrame {
      */
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    private final ClearRowCMND clearRowCMND = new ClearRowCMND(this);
+    private final ClearTable clearTable = new ClearTable(this);
+    private final DeleteTableCMND deleteTableCMND = new DeleteTableCMND(this);
+    private AbstractComand activeComand;
+
+    private Stack<AbstractComand> undoCommand;
+    private Stack<AbstractComand> redoCommand;
+    private Stack<List<Rezervation>> undoList;
+    private Stack<List<Rezervation>> redoList;
+
     public UrediRezervacije(){
         super("Edit Dates");
         setLayout(new BorderLayout());
@@ -106,6 +119,16 @@ public class UrediRezervacije extends JFrame {
 
 
         rezervations = new ArrayList<>();
+
+        toolBar.setClearRowCMND(clearRowCMND);
+        toolBar.setClearTable(clearTable);
+        toolBar.setDeleteTableCMND(deleteTableCMND);
+
+        activeComand = clearRowCMND;
+        undoCommand = new Stack<>();
+        redoCommand = new Stack<>();
+        undoList = new Stack<>();
+        redoList = new Stack<>();
     }
 
 
@@ -199,5 +222,125 @@ public class UrediRezervacije extends JFrame {
 
     public void setRezervations(List<Rezervation> rezervations) {
         this.rezervations = rezervations;
+    }
+
+    /**
+     * Undo comand.
+     */
+    public void undo(){
+        if(!(undoList.isEmpty() & undoCommand.isEmpty())){
+            redoList.add(rezervations);
+            redoCommand.add(activeComand);
+
+            activeComand = undoCommand.pop();
+            toolBar.setActiveComand(activeComand);
+            rezervations = undoList.pop();
+
+            DataEvent dataEvent = new DataEvent(this,rezervations);
+            dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
+        } else{
+            JOptionPane.showMessageDialog(this, "Nothing to undo");
+        }
+    }
+
+    /**
+     * RedoComand.
+     */
+    public void redo(){
+        if(!(redoList.isEmpty() & redoCommand.isEmpty())){
+            undoList.add(rezervations);
+            undoCommand.add(activeComand);
+
+            activeComand = redoCommand.pop();
+            toolBar.setActiveComand(activeComand);
+            rezervations = redoList.pop();
+
+            DataEvent dataEvent = new DataEvent(this,rezervations);
+            dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
+        }else{
+            JOptionPane.showMessageDialog(this, "Nothing to redo!!!");
+        }
+    }
+
+    /**
+     * Method to delete everything from table.
+     */
+    public void deleteTable() {
+        if(! rezervations.isEmpty()) {
+            undoList.add(rezervations);
+            undoCommand.add(activeComand);
+            rezervations = new ArrayList<>();
+            activeComand = deleteTableCMND;
+            toolBar.setActiveComand(activeComand);
+
+            DataEvent dataEvent = new DataEvent(this, rezervations);
+            dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
+        }else{
+            JOptionPane.showMessageDialog(this, "Table is empty!!!");
+        }
+    }
+
+    /**
+     * Method to clearReserved massages.
+     */
+    public void clearTable() {
+        if(! rezervations.isEmpty()) {
+            List<Rezervation> clearedRezervations = new ArrayList<>();
+            for (int x = 0; x < rezervations.size(); x++) {
+                Rezervation rez4Table = rezervations.get(x);
+                String date = rez4Table.getDay();
+                Rezervation rezervation = new Rezervation("", "", "", "",
+                        1, "", false, false, String.valueOf(TimeEnum.values()[x]),
+                        date, null);
+                clearedRezervations.add(rezervation);
+            }
+
+            undoList.add(rezervations);
+            rezervations = clearedRezervations;
+            undoCommand.add(activeComand);
+            activeComand = clearTable;
+            toolBar.setActiveComand(activeComand);
+
+            DataEvent dataEvent = new DataEvent(this, rezervations);
+            dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
+        }else{
+            JOptionPane.showMessageDialog(this, "Table is empty!!!");
+        }
+    }
+
+    /**
+     * Method that clears that one reservation.
+     */
+    public void clearRow() {
+        if(! rezervations.isEmpty()) {
+            List<Rezervation> clearedRezervations = new ArrayList<>();
+            int row = tablica.getSelectedRow();
+            if(row != -1) {
+                for (int x = 0; x < rezervations.size(); x++) {
+                    if (x == row) {
+                        Rezervation rez4Table = rezervations.get(x);
+                        String date = rez4Table.getDay();
+                        Rezervation rezervation = new Rezervation("", "", "", "",
+                                1, "", false, false, String.valueOf(TimeEnum.values()[x]),
+                                date, null);
+                        clearedRezervations.add(rezervation);
+                    } else{
+                        clearedRezervations.add(rezervations.get(x));
+                    }
+                }
+                undoList.add(rezervations);
+                rezervations = clearedRezervations;
+                undoCommand.add(activeComand);
+                activeComand = clearRowCMND;
+                toolBar.setActiveComand(activeComand);
+
+                DataEvent dataEvent = new DataEvent(this, rezervations);
+                dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
+            }else{
+                JOptionPane.showMessageDialog(this, "Please select row to clearRow!!!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Table is empty!!!");
+        }
     }
 }

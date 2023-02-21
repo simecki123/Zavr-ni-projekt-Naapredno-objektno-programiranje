@@ -1,10 +1,18 @@
 package View;
 
+import Controller.AbstractComand;
+import Controller.ClearRowCMND;
+import Controller.ClearTable;
+import Controller.DeleteTableCMND;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
 
 public class ToolBar {
     /**
@@ -55,14 +63,32 @@ public class ToolBar {
      * Button
      */
     private JButton redo;
+    /**
+     * ClearRow Command.
+     */
+    private ClearRowCMND clearRowCMND;
+    /**
+     * ClearTable Command.
+     */
+    private ClearTable clearTable;
+    /**
+     * DeleteTable Command.
+     */
+    private DeleteTableCMND deleteTableCMND;
+
+    private AbstractComand activeComand;
 
     public ToolBar(){
+        innitAll();
+        activateAll();
+    }
+    public void innitAll(){
         setIcons();
-        clearRow = new JButton();
-        clearAll = new JButton();
-        deleteALL = new JButton();
-        undo = new JButton();
-        redo = new JButton();
+        clearRow = new JButton(clearRowwIcon);
+        clearAll = new JButton(clearTableIcon);
+        deleteALL = new JButton(deleteTableIcon);
+        undo = new JButton(undoIcon);
+        redo = new JButton(redoIcon);
 
         toolBar = new JToolBar();
         toolBar.setSize(1000,100);
@@ -71,7 +97,55 @@ public class ToolBar {
         toolBar.add(deleteALL);
         toolBar.add(undo);
         toolBar.add(redo);
+
+
     }
+
+    public void activateAll(){
+        clearRow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearRowCMND.execute();
+            }
+        });
+
+        clearAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearTable.execute();
+            }
+        });
+
+        deleteALL.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteTableCMND.execute();
+            }
+        });
+
+        undo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(activeComand == null){
+                    JOptionPane.showMessageDialog(new JFrame(), "Nothing to undo!!!");
+                } else{
+                    activeComand.undo();
+                }
+            }
+        });
+        redo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(activeComand == null){
+                    JOptionPane.showMessageDialog(new JFrame(), "Nothing to redo!!!");
+                } else{
+                    activeComand.redo();
+                }
+            }
+        });
+    }
+
+
 
     public JToolBar getToolBar() {
         return toolBar;
@@ -105,5 +179,21 @@ public class ToolBar {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void setClearRowCMND(ClearRowCMND clearRowCMND) {
+        this.clearRowCMND = clearRowCMND;
+    }
+
+    public void setClearTable(ClearTable clearTable) {
+        this.clearTable = clearTable;
+    }
+
+    public void setDeleteTableCMND(DeleteTableCMND deleteTableCMND) {
+        this.deleteTableCMND = deleteTableCMND;
+    }
+
+    public void setActiveComand(AbstractComand activeComand) {
+        this.activeComand = activeComand;
     }
 }

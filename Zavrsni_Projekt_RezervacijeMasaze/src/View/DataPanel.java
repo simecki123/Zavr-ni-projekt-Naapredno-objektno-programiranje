@@ -482,7 +482,7 @@ public class DataPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(dplSearchDate != null){
                     if(!(rezervationsFromDataBase.isEmpty())) {
-                        if (!(nameField.getText().equals("") || mailField.getText().equals("") || phoneNumberField.getText().equals("") || simpleDateFormat.format(dayField.getDate()).equals(""))) {
+                        if (!(nameField.getText().equals("") || mailField.getText().equals("") || phoneNumberField.getText().equals("") || dayField.getDate() == null)) {
                             rezervation = new Rezervation(nameField.getText(), phoneNumberField.getText(), mailField.getText(),
                                     String.valueOf(massageTypeField.getSelectedItem()), intezitetField.getValue(), addNoteField.getText(),
                                     yesToJaccuzy.isSelected(), yesToSpa.isSelected(), String.valueOf(time.getSelectedItem()),
