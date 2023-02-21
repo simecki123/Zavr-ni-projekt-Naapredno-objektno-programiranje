@@ -164,12 +164,33 @@ public class MainFrame extends JFrame {
             }
         });
 
+        urediRezervacije.setDplSave2Server(new DataPanelListener() {
+            @Override
+            public void dataPanelEventOccured(DataEvent dataEvent) {
+                System.out.println("Spremljeno U server");
+            }
+        });
+        urediRezervacije.setDplUploadDataFromServer(new DataPanelListener() {
+            @Override
+            public void dataPanelEventOccured(DataEvent dataEvent) {
+                System.out.println("Uploadano sa servera");
+            }
+        });
+        urediRezervacije.setDplDisonectFromServer(new DataPanelListener() {
+            @Override
+            public void dataPanelEventOccured(DataEvent dataEvent) {
+                System.out.println("Diskonektano");
+            }
+        });
+
         pregledRezervacijaPanel.setPanelListenerSearch(new DataPanelListener() {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
                 controller.addElementsUserIsSearchingFor(dataEvent.getRezervations(), pregledRezervacijaPanel.getTable());
             }
         });
+
+
 
 
 

@@ -125,6 +125,7 @@ public class UrediRezervacije extends JFrame {
 
 
         rezervations = new ArrayList<>();
+        menuBar.setRezervationList(rezervations);
 
         menuBar.setClearRowCMND(clearRowCMND);
         menuBar.setClearTableCmnd(clearTable);
@@ -139,6 +140,8 @@ public class UrediRezervacije extends JFrame {
         redoCommand = new Stack<>();
         undoList = new Stack<>();
         redoList = new Stack<>();
+
+
     }
 
 
@@ -157,12 +160,14 @@ public class UrediRezervacije extends JFrame {
                 if(dateChooser.getDate() != null) {
                     boolean vr = provjeriValiditivnost();
                     if (vr) {
+                        resetComands();
                         for (int x = 0; x < TimeEnum.values().length; x++) {
                             Rezervation rezervation = new Rezervation("", "", "", "",
                                     1, "", false, false, String.valueOf(TimeEnum.values()[x]),
                                     simpleDateFormat.format(dateChooser.getDate()), null);
                             rezervations.add(rezervation);
                         }
+                        menuBar.setRezervationList(rezervations);
 
                         DataEvent dataEvent = new DataEvent(this, rezervations);
                         dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -182,12 +187,15 @@ public class UrediRezervacije extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(dateChooser.getDate() != null) {
+                    resetComands();
                     List<Rezervation> odabraneRezervacije = new ArrayList<>();
                     for(Rezervation rez : rezervations){
                         if(rez.getDay().equals(simpleDateFormat.format(dateChooser.getDate()))){
                             odabraneRezervacije.add(rez);
                         }
                     }
+                    menuBar.setRezervationList(rezervations);
+
                     DataEvent dataEvent = new DataEvent(this,odabraneRezervacije);
                     dataPanelSearch.dataPanelEventOccured(dataEvent);
                     dateChooser.setDate(null);
@@ -228,8 +236,19 @@ public class UrediRezervacije extends JFrame {
         return tablica;
     }
 
+    public void setDplSave2Server(DataPanelListener dplSave2Server) {
+        menuBar.setDplSaveToServer(dplSave2Server);
 
+    }
 
+    public void setDplUploadDataFromServer(DataPanelListener dplUploadDataFromServer) {
+        menuBar.setDplUploadFromServer(dplUploadDataFromServer);
+
+    }
+
+    public void setDplDisonectFromServer(DataPanelListener dplDisonectFromServer) {
+        menuBar.setDplDisconectFromServer(dplDisonectFromServer);
+    }
 
     public void setRezervations(List<Rezervation> rezervations) {
         this.rezervations = rezervations;
@@ -247,6 +266,7 @@ public class UrediRezervacije extends JFrame {
             toolBar.setActiveComand(activeComand);
             menuBar.setActiveComand(activeComand);
             rezervations = undoList.pop();
+            menuBar.setRezervationList(rezervations);
 
             DataEvent dataEvent = new DataEvent(this,rezervations);
             dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -267,6 +287,7 @@ public class UrediRezervacije extends JFrame {
             toolBar.setActiveComand(activeComand);
             menuBar.setActiveComand(activeComand);
             rezervations = redoList.pop();
+            menuBar.setRezervationList(rezervations);
 
             DataEvent dataEvent = new DataEvent(this,rezervations);
             dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -286,6 +307,7 @@ public class UrediRezervacije extends JFrame {
             activeComand = deleteTableCMND;
             toolBar.setActiveComand(activeComand);
             menuBar.setActiveComand(activeComand);
+            menuBar.setRezervationList(rezervations);
 
             DataEvent dataEvent = new DataEvent(this, rezervations);
             dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -299,13 +321,18 @@ public class UrediRezervacije extends JFrame {
      */
     public void clearTable() {
         if(! rezervations.isEmpty()) {
+            int br = 0;
             List<Rezervation> clearedRezervations = new ArrayList<>();
             for (int x = 0; x < rezervations.size(); x++) {
                 Rezervation rez4Table = rezervations.get(x);
                 String date = rez4Table.getDay();
                 Rezervation rezervation = new Rezervation("", "", "", "",
-                        1, "", false, false, String.valueOf(TimeEnum.values()[x]),
+                        1, "", false, false, String.valueOf(TimeEnum.values()[br]),
                         date, null);
+                br++;
+                if(br >= TimeEnum.values().length){
+                    br = 0;
+                }
                 clearedRezervations.add(rezervation);
             }
 
@@ -315,6 +342,7 @@ public class UrediRezervacije extends JFrame {
             activeComand = clearTable;
             toolBar.setActiveComand(activeComand);
             menuBar.setActiveComand(activeComand);
+            menuBar.setRezervationList(rezervations);
 
             DataEvent dataEvent = new DataEvent(this, rezervations);
             dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -349,6 +377,7 @@ public class UrediRezervacije extends JFrame {
                 activeComand = clearRowCMND;
                 toolBar.setActiveComand(activeComand);
                 menuBar.setActiveComand(activeComand);
+                menuBar.setRezervationList(rezervations);
 
                 DataEvent dataEvent = new DataEvent(this, rezervations);
                 dataPanelListenerCreate.dataPanelEventOccured(dataEvent);
@@ -359,4 +388,14 @@ public class UrediRezervacije extends JFrame {
             JOptionPane.showMessageDialog(this, "Table is empty!!!");
         }
     }
+
+    private void resetComands(){
+        undoList = new Stack<>();
+        redoList = new Stack<>();
+        undoCommand = new Stack<>();
+        redoCommand = new Stack<>();
+        toolBar.setActiveComand(null);
+    }
+
+
 }

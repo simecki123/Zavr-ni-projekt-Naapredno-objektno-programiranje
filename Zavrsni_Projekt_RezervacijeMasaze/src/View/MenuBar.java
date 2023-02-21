@@ -1,15 +1,17 @@
 package View;
 
-import Controller.Controller;
+
 import Controller.AbstractComand;
 import Controller.ClearRowCMND;
 import Controller.ClearTableMND;
 import Controller.DeleteTableCMND;
+import Model.Rezervation;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MenuBar {
     private JMenuBar menuBar;
@@ -17,7 +19,7 @@ public class MenuBar {
     private JMenu server;
     private JMenuItem save2Server;
     private JMenuItem uploadFromServer;
-    private JMenuItem exit;
+    private JMenuItem Disconect4Server;
 
     private JMenu edit;
     private JMenuItem clearRow;
@@ -25,8 +27,10 @@ public class MenuBar {
     private JMenuItem deleteTable;
     private JMenuItem undo;
     private JMenuItem redo;
-    private Controller controller;
-    private DataPanelListener dpl;
+    private DataPanelListener dplSaveToServer;
+    private DataPanelListener dplUploadFromServer;
+    private DataPanelListener dplDisconectFromServer;
+    private List<Rezervation> rezervationList;
 
     /**
      * ClearRow Command.
@@ -56,8 +60,8 @@ public class MenuBar {
         save2Server.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         uploadFromServer = new JMenuItem("Upload from server");
         uploadFromServer.setAccelerator(KeyStroke.getKeyStroke('U', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        exit = new JMenuItem("Exit");
-        exit.setAccelerator(KeyStroke.getKeyStroke('E', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        Disconect4Server = new JMenuItem("Disconect from server");
+        Disconect4Server.setAccelerator(KeyStroke.getKeyStroke('E', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
 
         edit = new JMenu("Edit");
         clearRow = new JMenuItem("Clear Row");
@@ -74,7 +78,7 @@ public class MenuBar {
         server.add(save2Server);
         server.add(uploadFromServer);
         server.addSeparator();
-        server.add(exit);
+        server.add(Disconect4Server);
 
         edit.add(clearRow);
         edit.add(clearTable);
@@ -88,12 +92,20 @@ public class MenuBar {
 
     }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
+    public void setRezervationList(List<Rezervation> rezervationList) {
+        this.rezervationList = rezervationList;
     }
 
-    public void setDpl(DataPanelListener dpl) {
-        this.dpl = dpl;
+    public void setDplSaveToServer(DataPanelListener dplSaveToServer) {
+        this.dplSaveToServer = dplSaveToServer;
+    }
+
+    public void setDplUploadFromServer(DataPanelListener dplUploadFromServer) {
+        this.dplUploadFromServer = dplUploadFromServer;
+    }
+
+    public void setDplDisconectFromServer(DataPanelListener dplDisconectFromServer) {
+        this.dplDisconectFromServer = dplDisconectFromServer;
     }
 
     public void setClearRowCMND(ClearRowCMND clearRowCMND) {
@@ -117,6 +129,28 @@ public class MenuBar {
     }
 
     private void activateApp() {
+        save2Server.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DataEvent dataEvent = new DataEvent(this, rezervationList);
+                dplSaveToServer.dataPanelEventOccured(dataEvent);
+            }
+        });
+        uploadFromServer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DataEvent dataEvent = new DataEvent(this, rezervationList);
+                dplUploadFromServer.dataPanelEventOccured(dataEvent);
+            }
+        });
+        Disconect4Server.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DataEvent dataEvent = new DataEvent(this, rezervationList);
+                dplDisconectFromServer.dataPanelEventOccured(dataEvent);
+            }
+        });
+
         clearRow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,6 +190,7 @@ public class MenuBar {
                 }
             }
         });
+
     }
 
 
