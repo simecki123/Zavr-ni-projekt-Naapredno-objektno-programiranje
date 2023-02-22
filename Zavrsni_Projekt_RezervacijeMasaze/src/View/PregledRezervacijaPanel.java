@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class frame that provides us with view upon all reservations.
+ */
 public class PregledRezervacijaPanel extends JFrame {
     /**
      * Our table.

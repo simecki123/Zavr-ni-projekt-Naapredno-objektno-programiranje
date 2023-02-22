@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * Menu Bar class that creates JMenuBar.
+ */
 public class MenuBar {
     /**
      * MenuBar.

@@ -5,7 +5,9 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * Panel that creates table.
+ */
 public class TablePanel extends JPanel{
 
     /**

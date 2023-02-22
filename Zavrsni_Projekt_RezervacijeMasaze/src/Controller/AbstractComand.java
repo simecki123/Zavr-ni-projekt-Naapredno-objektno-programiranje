@@ -2,6 +2,9 @@ package Controller;
 
 import View.UrediRezervacije;
 
+/**
+ * Abstract command that will be extended by real commands.
+ */
 public abstract class AbstractComand {
     protected UrediRezervacije urediRezervacije;
 

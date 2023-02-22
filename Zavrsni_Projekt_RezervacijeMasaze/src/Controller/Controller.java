@@ -9,6 +9,9 @@ import View.UrediRezervacije;
 
 import java.util.List;
 
+/**
+ * Class that represents controller of this project.
+ */
 public class Controller {
     /**
      * Variable that contains all saved objects.

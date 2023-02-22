@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
+/**
+ * Class frame that makes available dates for massages.
+ */
 public class UrediRezervacije extends JFrame {
     /**
      * MenuBar.

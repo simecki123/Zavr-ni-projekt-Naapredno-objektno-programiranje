@@ -2,6 +2,9 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * Class object that represents reservation.
+ */
 public class Rezervation implements Serializable {
     /**
      * Variable name of Client.

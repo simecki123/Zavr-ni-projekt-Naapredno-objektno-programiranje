@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Main Frame class.
+ */
 public class MainFrame extends JFrame {
     /**
      * Frame for view above all reservations.

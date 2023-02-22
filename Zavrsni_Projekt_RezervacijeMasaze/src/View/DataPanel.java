@@ -19,6 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
+/**
+ * Panel that creates reservations.
+ */
 public class DataPanel extends JPanel {
     /**
      * Variable that presents name field.

@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Class -> frame that creates reservation.
+ */
 public class NapraviRezervacijeCLS extends JFrame {
     /**
      * Our data panel.

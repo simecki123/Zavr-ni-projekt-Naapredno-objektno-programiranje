@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class that represents Data Base of this project.
+ */
 public class DataBase {
     /**
      * List that contains all Objects that are in DataBase.

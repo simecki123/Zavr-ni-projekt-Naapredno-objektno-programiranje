@@ -8,6 +8,9 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that represents our costume JTable.
+ */
 public class Tablica extends JTable{
     /**
      * Abstract Table Model.

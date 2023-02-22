@@ -5,6 +5,9 @@ import Model.Rezervation;
 import java.util.EventObject;
 import java.util.List;
 
+/**
+ * Class that represents event.
+ */
 public class DataEvent extends EventObject {
     /**
      * Variable that contains new reservations that moved this event.
