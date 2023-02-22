@@ -27,7 +27,7 @@ public class TablePanel extends JPanel{
         setPreferredSize(dim);
         initAll();
         layoutComps();
-        activateDataPanel();
+
     }
 
 
@@ -53,9 +53,7 @@ public class TablePanel extends JPanel{
 
     }
 
-    private void activateDataPanel() {
 
-    }
 
 
 

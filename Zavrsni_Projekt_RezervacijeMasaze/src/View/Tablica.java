@@ -9,15 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tablica extends JTable{
-
+    /**
+     * Abstract Table Model.
+     */
     private AbstractTableModel dtm;
+    /**
+     * List of reservations.
+     */
     private List<Rezervation> rezervations;
-    private List<Rezervation> activeReservations;
+
 
     public Tablica(){
         setTable();
         rezervations = new ArrayList<>();
-        activeReservations = new ArrayList<>();
+
 
     }
 

@@ -9,10 +9,22 @@ public abstract class AbstractComand {
         this.urediRezervacije = urediRezervacije;
     }
 
+    /**
+     * Method that executes command.
+     *
+     */
     public abstract void execute();
+
+    /**
+     * Method for undo.
+     */
     public void undo(){
         urediRezervacije.undo();
     }
+
+    /**
+     * Method for redo.
+     */
     public void redo(){
         urediRezervacije.redo();
     }

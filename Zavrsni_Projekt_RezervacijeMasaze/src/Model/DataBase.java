@@ -37,6 +37,9 @@ public class DataBase {
         return rezervationList;
     }
 
+    /**
+     * Method for connecting to the Data Base.
+     */
     public void connect()  {
         System.out.println("Connecting to database...");
             try {
@@ -49,6 +52,9 @@ public class DataBase {
 
     }
 
+    /**
+     * Method for disconnecting from Data Base.
+     */
     public void disconnect(){
         try {
             if(con != null) {
@@ -62,6 +68,9 @@ public class DataBase {
         }
     }
 
+    /**
+     * Method for downloading data from Data Base.
+     */
     public void uploadFromDB(){
         try{
             List<Rezervation> dataList = new ArrayList<>();
@@ -92,6 +101,9 @@ public class DataBase {
         }
     }
 
+    /**
+     * Method for saving current reservations to Data Base.
+     */
     public void save2Server() {
         try {
             PreparedStatement stmt = con.prepareStatement(

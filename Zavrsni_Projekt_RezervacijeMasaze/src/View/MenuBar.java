@@ -14,22 +14,65 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class MenuBar {
+    /**
+     * MenuBar.
+     */
     private JMenuBar menuBar;
-
+    /**
+     * JMenu.
+     */
     private JMenu server;
+    /**
+     * Menu item
+     */
     private JMenuItem save2Server;
+    /**
+     * Menu item
+     */
     private JMenuItem uploadFromServer;
+    /**
+     * Menu item
+     */
     private JMenuItem Disconect4Server;
-
+    /**
+     * JMenu
+     */
     private JMenu edit;
+    /**
+     * Menu item
+     */
     private JMenuItem clearRow;
+    /**
+     * Menu item
+     */
     private JMenuItem clearTable;
+    /**
+     * Menu item
+     */
     private JMenuItem deleteTable;
+    /**
+     * Menu item
+     */
     private JMenuItem undo;
+    /**
+     * Menu item
+     */
     private JMenuItem redo;
+    /**
+     * Data panel listener.
+     */
     private DataPanelListener dplSaveToServer;
+    /**
+     * Data panel listener.
+     */
     private DataPanelListener dplUploadFromServer;
+    /**
+     * Data panel listener.
+     */
     private DataPanelListener dplDisconectFromServer;
+    /**
+     * List of rezervations.
+     */
     private List<Rezervation> rezervationList;
 
     /**
@@ -45,6 +88,9 @@ public class MenuBar {
      */
     private DeleteTableCMND deleteTableCMND;
 
+    /**
+     * Active command.
+     */
     private AbstractComand activeComand;
 
     public MenuBar(){

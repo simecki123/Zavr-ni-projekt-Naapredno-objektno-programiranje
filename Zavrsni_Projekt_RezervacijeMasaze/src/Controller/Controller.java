@@ -76,22 +76,38 @@ public class Controller {
 
     }
 
+    /**
+     * Method for connecting to Data Base.
+     */
     public void connect2DB(){
         dataBase.connect();
     }
+
+    /**
+     * method for disconnection from Data Base.
+     */
     public void disconect(){
         dataBase.disconnect();
     }
 
+    /**
+     * Method for downloading data from server.
+     */
     public void uploadDataFromServer(){
         dataBase.uploadFromDB();
         updateOtherPanels(dataBase.getAllFromDB());
     }
+
+    /**
+     * Method to reset commands from ToolBar.
+     */
     public void resetComands(){
         urediRezervacije.resetComands();
     }
 
-
+    /**
+     * Method to save current table to DataBase.
+     */
     public void saveData2Server() {
         dataBase.save2Server();
     }

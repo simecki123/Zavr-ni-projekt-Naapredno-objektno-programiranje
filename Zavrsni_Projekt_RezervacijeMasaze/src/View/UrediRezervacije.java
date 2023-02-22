@@ -76,14 +76,38 @@ public class UrediRezervacije extends JFrame {
      */
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * Command for clearing row of table.
+     */
     private final ClearRowCMND clearRowCMND = new ClearRowCMND(this);
+    /**
+     * Command for clearing entire table.
+     */
     private final ClearTableMND clearTable = new ClearTableMND(this);
+    /**
+     * Command for deleting table.
+     */
     private final DeleteTableCMND deleteTableCMND = new DeleteTableCMND(this);
+    /**
+     * Active command.
+     */
     private AbstractComand activeComand;
 
+    /**
+     * Stack for undo commands.
+     */
     private Stack<AbstractComand> undoCommand;
+    /**
+     * Stack for redo commands.
+     */
     private Stack<AbstractComand> redoCommand;
+    /**
+     * Stack that holds Lists of reservations that are no longer active.
+     */
     private Stack<List<Rezervation>> undoList;
+    /**
+     * Stack that holds Lists of reservations that are no longer active.
+     */
     private Stack<List<Rezervation>> redoList;
 
     public UrediRezervacije(){
@@ -389,6 +413,9 @@ public class UrediRezervacije extends JFrame {
         }
     }
 
+    /**
+     * Method that resets all stacks.
+     */
     public void resetComands(){
         undoList = new Stack<>();
         redoList = new Stack<>();

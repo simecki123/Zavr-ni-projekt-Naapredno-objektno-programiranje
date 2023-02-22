@@ -75,7 +75,9 @@ public class ToolBar {
      * DeleteTable Command.
      */
     private DeleteTableCMND deleteTableCMND;
-
+    /**
+     * Active comand.
+     */
     private AbstractComand activeComand;
 
     public ToolBar(){
