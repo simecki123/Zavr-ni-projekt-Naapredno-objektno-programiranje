@@ -23,7 +23,7 @@ public class DataBase {
     }
 
     /**
-     * Method thaat updates DataBase.
+     * Method that updates DataBase.
      * @param rezervations List that contains new DataBase Objects.
      */
     public void addNewRezervations2DB(List<Rezervation> rezervations){
