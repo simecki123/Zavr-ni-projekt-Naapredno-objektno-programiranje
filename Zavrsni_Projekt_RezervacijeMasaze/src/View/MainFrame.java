@@ -2,15 +2,12 @@ package View;
 
 import Controller.Controller;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
+
 
 /**
  * Main Frame class.
@@ -45,10 +42,7 @@ public class MainFrame extends JFrame {
      * Button
      */
     private JButton pregledRasporeda;
-    /**
-     * Panel for picture.
-     */
-    private JPanel slikaPanel;
+
     /**
      * Our controller.
      */
@@ -89,36 +83,6 @@ public class MainFrame extends JFrame {
         panelBottuns.add(pregledRasporeda);
         panelBottuns.setBackground(Color.BLACK);
 
-        slikaPanel = new JPanel();
-        slikaPanel.setSize(600,400);
-        slikaPanel.setBackground(Color.CYAN);
-
-        File file = new File("Zavrsni_Projekt_RezervacijeMasaze/src/Slike/za projekt _Marin.jpeg");
-        Image img;
-        try {
-            img = ImageIO.read(file);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not load \"" + file + "\"", e);
-        }
-
-        BufferedImage scaledImage = new BufferedImage(
-                ((BufferedImage) img).getColorModel(),
-                ((BufferedImage) img).getRaster().createCompatibleWritableRaster(600, 400),
-                false, new Properties());
-
-        Graphics g = scaledImage.createGraphics();
-        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_SPEED);
-        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-
-        g.drawImage(img, 0, 0, 600, 400, null);
-        g.dispose();
-
-
-        JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
-        slikaPanel.add(picLabel);
-
         controller = new Controller(urediRezervacije,pregledRezervacijaPanel, napraviRezervacijeCLS);
         napraviRezervacijeCLS.setController(controller);
 
@@ -127,7 +91,7 @@ public class MainFrame extends JFrame {
 
     private void layoutAll() {
         add(panelBottuns, BorderLayout.NORTH);
-        add(slikaPanel, BorderLayout.CENTER);
+
 
     }
 
