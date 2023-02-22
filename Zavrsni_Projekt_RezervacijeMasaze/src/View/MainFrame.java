@@ -155,6 +155,7 @@ public class MainFrame extends JFrame {
                 controller.addNewElementsInDatabase(dataEvent.getRezervations());
                 controller.showDataOnTable(urediRezervacije.getTablica());
                 controller.updateOtherPanels(dataEvent.getRezervations());
+
             }
         });
         urediRezervacije.setDataPanelSearch(new DataPanelListener() {
@@ -167,19 +168,24 @@ public class MainFrame extends JFrame {
         urediRezervacije.setDplSave2Server(new DataPanelListener() {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
-                System.out.println("Spremljeno U server");
+                controller.connect2DB();
+                controller.saveData2Server();
+                controller.resetComands();
+
             }
         });
         urediRezervacije.setDplUploadDataFromServer(new DataPanelListener() {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
-                System.out.println("Uploadano sa servera");
+                controller.connect2DB();
+                controller.uploadDataFromServer();
+                controller.resetComands();
             }
         });
         urediRezervacije.setDplDisonectFromServer(new DataPanelListener() {
             @Override
             public void dataPanelEventOccured(DataEvent dataEvent) {
-                System.out.println("Diskonektano");
+                controller.disconect();
             }
         });
 

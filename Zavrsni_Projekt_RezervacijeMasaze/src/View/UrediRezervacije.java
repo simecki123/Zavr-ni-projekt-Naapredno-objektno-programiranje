@@ -163,7 +163,7 @@ public class UrediRezervacije extends JFrame {
                         resetComands();
                         for (int x = 0; x < TimeEnum.values().length; x++) {
                             Rezervation rezervation = new Rezervation("", "", "", "",
-                                    1, "", false, false, String.valueOf(TimeEnum.values()[x]),
+                                    "1", "", false, false, String.valueOf(TimeEnum.values()[x]),
                                     simpleDateFormat.format(dateChooser.getDate()), null);
                             rezervations.add(rezervation);
                         }
@@ -327,7 +327,7 @@ public class UrediRezervacije extends JFrame {
                 Rezervation rez4Table = rezervations.get(x);
                 String date = rez4Table.getDay();
                 Rezervation rezervation = new Rezervation("", "", "", "",
-                        1, "", false, false, String.valueOf(TimeEnum.values()[br]),
+                        "1", "", false, false, String.valueOf(TimeEnum.values()[br]),
                         date, null);
                 br++;
                 if(br >= TimeEnum.values().length){
@@ -364,7 +364,7 @@ public class UrediRezervacije extends JFrame {
                         Rezervation rez4Table = rezervations.get(x);
                         String date = rez4Table.getDay();
                         Rezervation rezervation = new Rezervation("", "", "", "",
-                                1, "", false, false, String.valueOf(TimeEnum.values()[x]),
+                                "1", "", false, false, String.valueOf(TimeEnum.values()[x]),
                                 date, null);
                         clearedRezervations.add(rezervation);
                     } else{
@@ -389,7 +389,7 @@ public class UrediRezervacije extends JFrame {
         }
     }
 
-    private void resetComands(){
+    public void resetComands(){
         undoList = new Stack<>();
         redoList = new Stack<>();
         undoCommand = new Stack<>();

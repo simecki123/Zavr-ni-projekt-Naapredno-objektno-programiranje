@@ -484,7 +484,7 @@ public class DataPanel extends JPanel {
                     if(!(rezervationsFromDataBase.isEmpty())) {
                         if (!(nameField.getText().equals("") || mailField.getText().equals("") || phoneNumberField.getText().equals("") || dayField.getDate() == null)) {
                             rezervation = new Rezervation(nameField.getText(), phoneNumberField.getText(), mailField.getText(),
-                                    String.valueOf(massageTypeField.getSelectedItem()), intezitetField.getValue(), addNoteField.getText(),
+                                    String.valueOf(massageTypeField.getSelectedItem()), String.valueOf(intezitetField.getValue()), addNoteField.getText(),
                                     yesToJaccuzy.isSelected(), yesToSpa.isSelected(), String.valueOf(time.getSelectedItem()),
                                     simpleDateFormat.format(dayField.getDate()), price.getText());
 

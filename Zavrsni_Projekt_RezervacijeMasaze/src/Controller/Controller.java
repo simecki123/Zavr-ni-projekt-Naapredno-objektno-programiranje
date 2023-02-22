@@ -70,8 +70,29 @@ public class Controller {
         urediRezervacije.setRezervations(rezervations);
         pregledRezervacijaPanel.setRezervations(rezervations);
         napraviRezervacijeCLS.setRezervations(rezervations);
+        showDataOnTable(urediRezervacije.getTablica());
+        addElementsUserIsSearchingFor(dataBase.getAllFromDB(),pregledRezervacijaPanel.getTable());
+        addElementsUserIsSearchingFor(dataBase.getAllFromDB(), napraviRezervacijeCLS.getTable());
 
     }
 
+    public void connect2DB(){
+        dataBase.connect();
+    }
+    public void disconect(){
+        dataBase.disconnect();
+    }
 
+    public void uploadDataFromServer(){
+        dataBase.uploadFromDB();
+        updateOtherPanels(dataBase.getAllFromDB());
+    }
+    public void resetComands(){
+        urediRezervacije.resetComands();
+    }
+
+
+    public void saveData2Server() {
+        dataBase.save2Server();
+    }
 }

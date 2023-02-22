@@ -55,6 +55,9 @@ public class NapraviRezervacijeCLS extends JFrame {
         this.controller = controller;
     }
 
+    public Tablica getTable(){
+        return tablePanel.getTablica();
+    }
 
 
     private void activateApp() {

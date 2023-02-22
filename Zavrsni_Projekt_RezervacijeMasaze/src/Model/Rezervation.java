@@ -22,7 +22,7 @@ public class Rezervation implements Serializable {
     /**
      * Variable that contains intensity value.
      */
-    private int intesityValue;
+    private String intesityValue;
     /**
      * Variable that contains special note that Client requested.
      */
@@ -51,7 +51,7 @@ public class Rezervation implements Serializable {
 
 
     public Rezervation(String name, String phoneNumber, String mail, String masss
-                       , int intesityValue, String specNote, boolean napitakIJacuzzy, boolean spaOffer, String time, String day, String price){
+                       , String intesityValue, String specNote, boolean napitakIJacuzzy, boolean spaOffer, String time, String day, String price){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.mail = mail;
@@ -83,7 +83,7 @@ public class Rezervation implements Serializable {
     public String getMassageType() {
         return massageType;
     }
-    public int getIntesityValue() {
+    public String getIntesityValue() {
         return intesityValue;
     }
 
