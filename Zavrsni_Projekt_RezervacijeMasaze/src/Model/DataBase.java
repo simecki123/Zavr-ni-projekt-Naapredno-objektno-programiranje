@@ -109,28 +109,56 @@ public class DataBase {
      */
     public void save2Server() {
         try {
-            PreparedStatement stmt = con.prepareStatement(
+            PreparedStatement selectStmt = con.prepareStatement(
+                    "SELECT COUNT(*) FROM zavrsniprojektnoop.terminirezervacija WHERE Time = ? AND Day = ?"
+            );
+
+            PreparedStatement insertStmt = con.prepareStatement(
                     "INSERT INTO zavrsniprojektnoop.terminirezervacija (name, phone, mail, massType, intensity, SpecialNote, drinkandjac, Spa, Time, Day, Price) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            );
 
-            for(Rezervation rez : rezervationList){
-                stmt.setString(1, rez.getName());
-                stmt.setString(2, rez.getPhoneNumber());
-                stmt.setString(3, rez.getMail());
-                stmt.setString(4, rez.getMassageType());
-                stmt.setString(5, rez.getIntesityValue());
-                stmt.setString(6, rez.getSpecNote());
-                stmt.setBoolean(7, rez.isNapitakIJacuzzy());
-                stmt.setBoolean(8, rez.isSpaOffer());
-                stmt.setString(9, rez.getTime());
-                stmt.setString(10, rez.getDay());
-                stmt.setString(11, rez.getPrice());
-                stmt.executeUpdate();
+            PreparedStatement deleteStmt = con.prepareStatement(
+                    "DELETE FROM zavrsniprojektnoop.terminirezervacija WHERE Time = ? AND Day = ?"
+            );
+
+            for (Rezervation obj : rezervationList) {
+                String time = obj.getTime();
+                String day = obj.getDay();
+                selectStmt.setString(1, time);
+                selectStmt.setString(2, day);
+                ResultSet rs = selectStmt.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+                rs.close();
+                if (count > 0) {
+                    deleteStmt.setString(1, time);
+                    deleteStmt.setString(2, day);
+                    deleteStmt.executeUpdate();
+                }
+                insertStmt.setString(1, obj.getName());
+                insertStmt.setString(2, obj.getPhoneNumber());
+                insertStmt.setString(3, obj.getMail());
+                insertStmt.setString(4, obj.getMassageType());
+                insertStmt.setString(5, obj.getIntesityValue());
+                insertStmt.setString(6, obj.getSpecNote());
+                insertStmt.setBoolean(7, obj.isNapitakIJacuzzy());
+                insertStmt.setBoolean(8, obj.isSpaOffer());
+                insertStmt.setString(9, time);
+                insertStmt.setString(10, day);
+                insertStmt.setString(11, obj.getPrice());
+                insertStmt.executeUpdate();
             }
-            stmt.close();
-
+            selectStmt.close();
+            deleteStmt.close();
+            insertStmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
+
+
+
 }
